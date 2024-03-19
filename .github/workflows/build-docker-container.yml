@@ -17,11 +17,8 @@ jobs:
             password: ${{ secrets.DOCKER_HUB_ACCESS_TOKEN }}
 
       - name: Build Dockerfile
-        working-directory: PlatformService/PlatformService
+        working-directory: PlatformService/PlatformService #Make sure that the work dir contains the Dockerfile, you can't path it in the run command for some reason
         run: docker build . -f Dockerfile --tag ${{ secrets.DOCKER_HUB_USERNAME }}/4_semester:latest
-
-      - name: Show Dir
-        run: ls
 
       - name: Push to Docker Hub
         run: docker push ${{ secrets.DOCKER_HUB_USERNAME }}/4_semester:latest
