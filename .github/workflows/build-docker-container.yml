@@ -15,7 +15,7 @@ jobs:
             username: ${{ secrets.DOCKER_HUB_USERNAME }}
             password: ${{ secrets.DOCKER_HUB_ACCESS_TOKEN }}
       - name: Build Dockerfile
-        working-directory: PlatformService
-        run: docker build ..\PlatformService --file Dockerfile --tag ${{ secrets.DOCKER_HUB_USERNAME }}/4_semester:latest
+        working-directory: MicroserviceProject
+        run: docker build PlatformService/PlatformService --file Dockerfile --tag ${{ secrets.DOCKER_HUB_USERNAME }}/4_semester:latest
       - name: Push to Docker Hub
         run: docker push ${{ secrets.DOCKER_HUB_USERNAME }}/4_semester:latest
