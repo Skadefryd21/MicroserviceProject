@@ -16,9 +16,6 @@ jobs:
             username: ${{ secrets.DOCKER_HUB_USERNAME }}
             password: ${{ secrets.DOCKER_HUB_ACCESS_TOKEN }}
 
-      - name: Show Dir
-        run: ls
-
       - name: Build Dockerfile
         working-directory: PlatformService
         run: docker build . -f Dockerfile --tag ${{ secrets.DOCKER_HUB_USERNAME }}/4_semester:latest
