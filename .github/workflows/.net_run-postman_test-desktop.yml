@@ -29,7 +29,8 @@ jobs:
       run: dotnet build ./PlatformService/PlatformService.sln
       
     - name: Run
-      run: dotnet run ./PlatformService/PlatformService --no-build --verbosity normal
+      working-directory: PlatformService/PlatformService
+      run: dotnet run . --no-build --verbosity normal
       
     - name: Run API tests
       run: |
