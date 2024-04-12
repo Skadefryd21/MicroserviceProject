@@ -1,0 +1,36 @@
+name: CI_dotnet_build_&_test
+
+on: [pull_request, push] 
+
+jobs:
+  build:
+
+    runs-on: [windows-latest]
+
+    steps:
+    - uses: actions/checkout@v3
+    
+    - name: Setup .NET
+      uses: actions/setup-dotnet@v3
+      with:
+        dotnet-version: 6.0.x
+
+    - name: Install Postman CLI
+      run: |
+        curl -o- "https://dl-cli.pstmn.io/install/linux64.sh" | sh
+        
+    - name: Login to Postman CLI
+      run: postman login --with-api-key ${{ secrets.POSTMAN_API_KEY }}
+
+    - name: Show Dir
+      run: ls
+      
+    - name: Build
+      run: dotnet build ./PlatformService/PlatformService.sln
+      
+    - name: Run
+      run: dotnet run ./PlatformService/PlatformService --no-build --verbosity normal
+      
+    - name: Run API tests
+      run: |
+        postman collection run "29793772-2a57d778-ecda-4928-bc3c-d3d807cf8b01"
