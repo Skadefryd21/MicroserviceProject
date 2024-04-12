@@ -3,7 +3,22 @@ name: CI_dotnet_build_&_test
 on: [pull_request, push] 
 
 jobs:
-  build:
+  postman:
+    runs-on: [windows-latest]
+    
+    steps:
+    
+    - name: Install Postman CLI
+      run: |
+          powershell.exe -NoProfile -InputFormat None -ExecutionPolicy AllSigned -Command "[System.Net.ServicePointManager]::SecurityProtocol = 3072; iex ((New-Object System.Net.WebClient).DownloadString('https://dl-cli.pstmn.io/install/win64.ps1'))"
+        
+    - name: Login to Postman CLI
+      run: postman login --with-api-key ${{ secrets.POSTMAN_API_KEY }}
+    - name: Run API tests
+      run: |
+        postman collection run "29793772-2a57d778-ecda-4928-bc3c-d3d807cf8b01"
+        
+  .NET:
 
     runs-on: [windows-latest]
 
@@ -15,13 +30,6 @@ jobs:
       with:
         dotnet-version: 6.0.x
 
-    - name: Install Postman CLI
-      run: |
-          powershell.exe -NoProfile -InputFormat None -ExecutionPolicy AllSigned -Command "[System.Net.ServicePointManager]::SecurityProtocol = 3072; iex ((New-Object System.Net.WebClient).DownloadString('https://dl-cli.pstmn.io/install/win64.ps1'))"
-        
-    - name: Login to Postman CLI
-      run: postman login --with-api-key ${{ secrets.POSTMAN_API_KEY }}
-
     - name: Show Dir
       run: ls
       
@@ -32,6 +40,4 @@ jobs:
       working-directory: PlatformService/PlatformService
       run: dotnet run . --no-build --verbosity normal
       
-    - name: Run API tests
-      run: |
-        postman collection run "29793772-2a57d778-ecda-4928-bc3c-d3d807cf8b01"
+
