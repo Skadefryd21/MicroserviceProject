@@ -14,12 +14,12 @@ jobs:
         
     - name: Login to Postman CLI
       run: postman login --with-api-key ${{ secrets.POSTMAN_API_KEY }}
+      
     - name: Run API tests
       run: |
         postman collection run "29793772-2a57d778-ecda-4928-bc3c-d3d807cf8b01"
         
-  .NET:
-
+  dotnet:
     runs-on: [windows-latest]
 
     steps:
