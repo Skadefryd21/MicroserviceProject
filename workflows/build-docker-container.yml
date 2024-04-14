@@ -1,0 +1,24 @@
+name: Build Docker Container
+
+
+on: push
+jobs:
+    build-container:
+      name: Build container
+      runs-on: ubuntu-latest
+      steps:
+      - name: Checout code
+        uses: actions/checkout@v3
+
+      - name: Login to Docker Hub
+        uses: docker/login-action@v1
+        with:
+            username: ${{ secrets.DOCKER_HUB_USERNAME }}
+            password: ${{ secrets.DOCKER_HUB_ACCESS_TOKEN }}
+
+      - name: Build Dockerfile
+        working-directory: PlatformService/PlatformService #Make sure that the work dir contains the Dockerfile, you can't path it in the run command for some reason
+        run: docker build . -f Dockerfile --tag ${{ secrets.DOCKER_HUB_USERNAME }}/4_semester:latest
+
+      - name: Push to Docker Hub
+        run: docker push ${{ secrets.DOCKER_HUB_USERNAME }}/4_semester:latest
