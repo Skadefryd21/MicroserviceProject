@@ -77,8 +77,8 @@ jobs:
       - name: 'Build and push container'
         working-directory: PlatformService/PlatformService
         run: |-
-            docker build -t $IMAGE_NAME:latest gcr.io/$PROJECT_ID/$IMAGE_NAME:$GIT_TAG .
-            docker push $IMAGE_NAME:latest gcr.io/$PROJECT_ID/$IMAGE_NAME:$GIT_TAG
+            docker build -t $IMAGE_NAME:latest .
+            docker push gcr.io/$PROJECT_ID/$IMAGE_NAME:latest
       
       - name: 'Create release name'
         run: |-
@@ -93,4 +93,4 @@ jobs:
             region: '${{ env.REGION }}'
             description: '${{ env.GITHUB_COMMIT_MSG }}'
             skaffold_file: 'config/skaffold.yaml'
-            images: 'app=$IMAGE_NAME:latest gcr.io/$PROJECT_ID/$IMAGE_NAME:$GIT_TAG'
+            images: 'app=$IMAGE_NAME:latest'
