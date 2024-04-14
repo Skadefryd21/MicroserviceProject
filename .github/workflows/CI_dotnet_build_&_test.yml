@@ -75,9 +75,10 @@ jobs:
           #docker push gcr.io/$PROJECT_ID/$IMAGE_NAME:$GIT_TAG
 
       - name: 'Build and push container'
+        working-directory: PlatformService/PlatformService
         run: |-
-            docker build -t "${{ env.GAR_LOCATION }}-docker.pkg.dev/${{ env.PROJECT_ID }}/${{ env.APP }}/${{ env.APP }}:${{ github.sha }}" ./app
-            docker push "${{ env.GAR_LOCATION }}-docker.pkg.dev/${{ env.PROJECT_ID }}/${{ env.APP }}/${{ env.APP }}:${{ github.sha }}"
+            docker build -t $IMAGE_NAME:latest gcr.io/$PROJECT_ID/$IMAGE_NAME:$GIT_TAG .
+            docker push $IMAGE_NAME:latest gcr.io/$PROJECT_ID/$IMAGE_NAME:$GIT_TAG
       
       - name: 'Create release name'
         run: |-
@@ -92,4 +93,4 @@ jobs:
             region: '${{ env.REGION }}'
             description: '${{ env.GITHUB_COMMIT_MSG }}'
             skaffold_file: 'config/skaffold.yaml'
-            images: 'app=${{ env.GAR_LOCATION }}-docker.pkg.dev/${{ env.PROJECT_ID }}/${{ env.APP }}/${{ env.APP }}:${{ github.sha }}'
+            images: 'app=$IMAGE_NAME:latest gcr.io/$PROJECT_ID/$IMAGE_NAME:$GIT_TAG'
