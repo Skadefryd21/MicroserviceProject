@@ -34,7 +34,7 @@ jobs:
       id-token: 'write'
       
     env:
-      IMAGE_NAME: Platformservice
+      IMAGE_NAME: platformservice
       PROJECT_ID: psychic-surf-420214
     
     steps:
