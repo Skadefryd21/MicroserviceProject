@@ -58,6 +58,7 @@ jobs:
             project_id: '${{ env.PROJECT_ID }}'
 
       - name: Build Docker Image
+        working-directory: PlatformService/PlatformService
         run: docker build -t $IMAGE_NAME:latest .
 
       - name: Configure Docker Client
