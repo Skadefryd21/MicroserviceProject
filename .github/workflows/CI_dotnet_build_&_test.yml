@@ -88,7 +88,7 @@ jobs:
       - name: 'Create Cloud Deploy release'
         uses: 'google-github-actions/create-cloud-deploy-release@v0'
         with:
-            delivery_pipeline: '${{ env.APP }}'
+            delivery_pipeline: 'platformservice-pipeline'
             name: '${{ env.RELEASE_NAME }}'
             region: '${{ env.REGION }}'
             description: '${{ env.GITHUB_COMMIT_MSG }}'
