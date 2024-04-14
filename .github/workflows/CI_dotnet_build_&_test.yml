@@ -27,7 +27,12 @@ jobs:
   Build-Push-Image-to-GCR: 
     runs-on: [ubuntu-latest]
     needs: build-and-test
-
+    
+    # Need to add these 3 lines to add "id-token" with the intended permissions.
+    permissions:
+      contents: 'read'
+      id-token: 'write'
+      
     env:
       IMAGE_NAME: Platformservice
       PROJECT_ID: psychic-surf-420214
