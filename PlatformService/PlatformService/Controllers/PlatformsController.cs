@@ -18,6 +18,7 @@ namespace PlatformService.Controllers
         //Inject repository & automapper
         public PlatformsController(IPlatformRepo repository, IMapper mapper, ICommandDataClient commandDataClient)
         {
+            
             _repository = repository;
             _mapper = mapper;
             _commandDataClient = commandDataClient;
@@ -59,6 +60,7 @@ namespace PlatformService.Controllers
             _repository.SaveChanges();
             PlatformReadDto platformResponse = _mapper.Map<PlatformReadDto>(platformModel);
 
+            Console.WriteLine("--> Trying to send platform to dataclient service");
             try
             {
                 await _commandDataClient.SendPlatformToCommand(platformResponse);
