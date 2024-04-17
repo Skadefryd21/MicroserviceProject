@@ -16,5 +16,5 @@ jobs:
       
     - name: Run API tests
       run: |
-        postman collection run "29793772-e415f09a-ffce-4c1b-af15-f1d07bf749a9"
+        postman collection run "${{ secrets.PM_COLLECTION }}"
 
