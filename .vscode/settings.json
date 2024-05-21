@@ -1,3 +1,7 @@
 {
-    "dotnet.defaultSolution": "PlatformService.sln"
+    "dotnet.defaultSolution": "PlatformService.sln",
+    "yaml.schemas": {
+        "file:///c%3A/Users/Niko/.vscode/extensions/docsmsft.docs-yaml-1.0.1/dist/toc.schema.json": "/toc\\.yml/i",
+        "kubernetes://schema/v1%40service": "file:///c%3A/Users/Niko/Desktop/Projects/MicroserviceProject/Kubernetes/platforms-depl.yaml"
+    }
 }
