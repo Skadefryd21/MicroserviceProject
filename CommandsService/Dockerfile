@@ -13,4 +13,6 @@ COPY --from=build-env /app/out .
 
 EXPOSE 80
 
+EXPOSE 6001
+
 ENTRYPOINT [ "dotnet", "CommandsService.dll" ]
