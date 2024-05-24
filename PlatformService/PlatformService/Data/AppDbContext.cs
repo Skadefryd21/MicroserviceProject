@@ -13,10 +13,6 @@ namespace PlatformService.Data
         {
             
         }
-        public AppDbContext()
-        {
-            
-        }
 
         //This property represents a collection of Platform entities within the database. It allows you to query and manipulate the Platform entities using LINQ queries or Entity Framework methods like Add, Remove, Find, etc.
         public DbSet<Platform> Platforms { get; set; }
