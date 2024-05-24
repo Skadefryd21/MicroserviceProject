@@ -1,4 +1,5 @@
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using PlatformService.Data;
 using PlatformService.SyncDataServices.Http;
@@ -6,8 +7,16 @@ using PlatformService.SyncDataServices.Http;
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
-builder.Services.AddDbContext<AppDbContext>(opt => 
-    opt.UseInMemoryDatabase("InMem")); //InMemory Databases are really only used for testing purposes mostly
+// if (builder.Environment.IsProduction()){
+    Console.WriteLine("--> Using SQL Server");
+    builder.Services.AddDbContext<AppDbContext>(opt => 
+        opt.UseSqlServer(builder.Configuration.GetConnectionString("SQL Server")));
+// }
+// else{
+//     Console.WriteLine("--> Using InMem Db");
+//     builder.Services.AddDbContext<AppDbContext>(opt => 
+//         opt.UseInMemoryDatabase("InMem")); //InMemory Databases are really only used for testing purposes mostly
+// }
 
 builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
 
@@ -34,6 +43,6 @@ app.UseAuthorization();
 
 app.MapControllers();
 
-PrepDb.PrepPopulation(app);
+//PrepDb.PrepPopulation(app, builder.Environment.IsProduction());
 
 app.Run();
