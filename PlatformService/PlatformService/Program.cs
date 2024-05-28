@@ -29,7 +29,7 @@ if (app.Environment.IsDevelopment())
 
 app.UseHttpsRedirection();
 //app.UseRouting();
-
+//Test comment
 app.UseAuthorization();
 
 app.MapControllers();
